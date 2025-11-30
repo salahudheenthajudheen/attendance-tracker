@@ -15,31 +15,82 @@ import Settings from './pages/Settings';
 import ManageSubjects from './pages/ManageSubjects';
 import SubjectForm from './pages/SubjectForm';
 
+import NotificationScheduler from './components/NotificationScheduler';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useApp } from './context/AppContext';
+import { format } from 'date-fns';
+
+function AppContent() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { timetable, addAttendanceRecord, subjects } = useApp();
+
+  useEffect(() => {
+    const action = searchParams.get('action');
+    if (action) {
+      const today = new Date();
+      const dayName = format(today, 'EEEE');
+      const dateStr = format(today, 'yyyy-MM-dd');
+      const todaysClasses = timetable[dayName] || [];
+
+      if (action === 'mark-all') {
+        todaysClasses.forEach(slot => {
+          addAttendanceRecord({
+            subjectId: slot.subjectId,
+            date: dateStr,
+            status: 'present'
+          });
+        });
+        alert('Marked all classes as Present!');
+      } else if (action === 'mark-not') {
+        todaysClasses.forEach(slot => {
+          addAttendanceRecord({
+            subjectId: slot.subjectId,
+            date: dateStr,
+            status: 'absent'
+          });
+        });
+        alert('Marked all classes as Absent!');
+      }
+      // 'mark-not-all' just opens the app, so no specific logic needed other than clearing the param
+
+      // Clear the query param to prevent re-triggering on reload
+      navigate('/', { replace: true });
+    }
+  }, [searchParams, navigate, timetable, addAttendanceRecord]);
+
+  return (
+    <Routes>
+      <Route path="/setup" element={<Setup />} />
+
+      <Route path="/" element={
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      }>
+        <Route index element={<Home />} />
+        <Route path="subjects" element={<Subjects />} />
+        <Route path="subjects/manage" element={<ManageSubjects />} />
+        <Route path="subjects/new" element={<SubjectForm />} />
+        <Route path="subjects/edit/:id" element={<SubjectForm />} />
+        <Route path="subject/:id" element={<SubjectDetail />} />
+        <Route path="subject/:id/add" element={<AddAttendance />} />
+        <Route path="timetable" element={<Timetable />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
 function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/setup" element={<Setup />} />
-
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }>
-            <Route index element={<Home />} />
-            <Route path="subjects" element={<Subjects />} />
-            <Route path="subjects/manage" element={<ManageSubjects />} />
-            <Route path="subjects/new" element={<SubjectForm />} />
-            <Route path="subjects/edit/:id" element={<SubjectForm />} />
-            <Route path="subject/:id" element={<SubjectDetail />} />
-            <Route path="subject/:id/add" element={<AddAttendance />} />
-            <Route path="timetable" element={<Timetable />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <NotificationScheduler />
+        <AppContent />
       </BrowserRouter>
     </AppProvider>
   );

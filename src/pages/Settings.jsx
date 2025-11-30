@@ -137,6 +137,38 @@ const Settings = () => {
 
                     <Button
                         variant="ghost"
+                        className="w-full justify-start gap-3 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 dark:text-blue-400"
+                        onClick={async () => {
+                            if ('Notification' in window) {
+                                const permission = await Notification.requestPermission();
+                                if (permission === 'granted') {
+                                    const registration = await navigator.serviceWorker.ready;
+                                    registration.showNotification("Time to mark attendance!", {
+                                        body: "Did you attend all your classes today?",
+                                        icon: "/pwa-192x192.png",
+                                        vibrate: [200, 100, 200],
+                                        tag: 'daily-attendance-test',
+                                        actions: [
+                                            { action: 'mark-all', title: 'All Present' },
+                                            { action: 'mark-not-all', title: 'Not All' },
+                                            { action: 'mark-not', title: 'Not Present' }
+                                        ]
+                                    });
+                                } else {
+                                    alert('Please allow notifications to test this feature.');
+                                }
+                            } else {
+                                alert('Notifications are not supported in this browser.');
+                            }
+                        }}
+                    >
+                        <span className="flex items-center gap-3">
+                            <span className="text-xl">🔔</span> Test Notification
+                        </span>
+                    </Button>
+
+                    <Button
+                        variant="ghost"
                         className="w-full justify-start gap-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:text-red-400"
                         onClick={handleReset}
                     >
