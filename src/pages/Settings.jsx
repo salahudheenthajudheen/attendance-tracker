@@ -39,18 +39,18 @@ const Settings = () => {
                 <Button variant="ghost" className="p-2" onClick={() => navigate(-1)}>
                     <ArrowLeft size={20} />
                 </Button>
-                <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Settings</h1>
             </div>
 
             <div className="space-y-4">
-                <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Profile</h2>
+                <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Profile</h2>
                 <Card className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400">
                         <User size={24} />
                     </div>
                     <div>
-                        <h3 className="font-bold text-slate-900">{user?.name}</h3>
-                        <p className="text-sm text-slate-500">{user?.batch} • Sem {user?.semester}</p>
+                        <h3 className="font-bold text-slate-900 dark:text-white">{user?.name}</h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">{user?.batch} • Sem {user?.semester}</p>
                     </div>
                 </Card>
             </div>
@@ -95,26 +95,26 @@ const Settings = () => {
             </div>
 
             <div className="space-y-4">
-                <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Semester Info</h2>
+                <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Semester Info</h2>
                 <Card className="space-y-3">
                     <div className="flex justify-between text-sm">
-                        <span className="text-slate-600">Start Date</span>
-                        <span className="font-medium">{semesterData.semesterStart}</span>
+                        <span className="text-slate-600 dark:text-slate-400">Start Date</span>
+                        <span className="font-medium text-slate-900 dark:text-white">{semesterData.semesterStart}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                        <span className="text-slate-600">End Date</span>
-                        <span className="font-medium">{semesterData.semesterEnd}</span>
+                        <span className="text-slate-600 dark:text-slate-400">End Date</span>
+                        <span className="font-medium text-slate-900 dark:text-white">{semesterData.semesterEnd}</span>
                     </div>
-                    <div className="pt-2 border-t border-slate-100">
-                        <p className="text-xs text-slate-500 mb-2">Holidays ({semesterData.holidays.length})</p>
+                    <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Holidays ({semesterData.holidays.length})</p>
                         <div className="flex flex-wrap gap-2">
                             {semesterData.holidays.slice(0, 3).map((h, i) => (
-                                <span key={i} className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">
+                                <span key={i} className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-600 dark:text-slate-300">
                                     {h.name}
                                 </span>
                             ))}
                             {semesterData.holidays.length > 3 && (
-                                <span className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600">
+                                <span className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-600 dark:text-slate-300">
                                     +{semesterData.holidays.length - 3} more
                                 </span>
                             )}
@@ -124,7 +124,7 @@ const Settings = () => {
             </div>
 
             <div className="space-y-4">
-                <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Data</h2>
+                <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Data</h2>
                 <div className="space-y-3">
                     <Button
                         variant="secondary"
@@ -137,7 +137,7 @@ const Settings = () => {
 
                     <Button
                         variant="ghost"
-                        className="w-full justify-start gap-3 text-red-600 hover:bg-red-50 hover:text-red-700"
+                        className="w-full justify-start gap-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:text-red-400"
                         onClick={handleReset}
                     >
                         <Trash2 size={18} />

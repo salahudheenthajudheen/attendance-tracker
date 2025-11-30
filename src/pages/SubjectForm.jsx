@@ -7,7 +7,7 @@ import { useApp } from '../context/AppContext';
 const SubjectForm = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { subjects, addSubject, updateSubject } = useApp();
+    const { subjects, addSubject, updateSubject, user } = useApp();
 
     const isEdit = !!id;
 
@@ -49,7 +49,7 @@ const SubjectForm = () => {
                 <Button variant="ghost" className="p-2" onClick={() => navigate(-1)}>
                     <ArrowLeft size={20} />
                 </Button>
-                <h1 className="text-2xl font-bold text-slate-900">
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
                     {isEdit ? 'Edit Subject' : 'Add New Subject'}
                 </h1>
             </div>
@@ -57,7 +57,7 @@ const SubjectForm = () => {
             <Card className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700">Subject Name</label>
+                        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Subject Name</label>
                         <input
                             type="text"
                             name="name"
@@ -69,7 +69,7 @@ const SubjectForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700">Subject Code</label>
+                        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Subject Code</label>
                         <input
                             type="text"
                             name="code"
@@ -81,7 +81,7 @@ const SubjectForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700">Classes Per Week</label>
+                        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Classes Per Week</label>
                         <input
                             type="number"
                             name="classesPerWeek"
@@ -95,7 +95,7 @@ const SubjectForm = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700">Target Attendance % (Optional)</label>
+                        <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Target Attendance % (Optional)</label>
                         <input
                             type="number"
                             name="targetAttendance"
