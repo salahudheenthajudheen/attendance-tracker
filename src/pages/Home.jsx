@@ -5,6 +5,7 @@ import { BookOpen, Calendar, Plus } from 'lucide-react';
 import { Button } from '../components/ui/Components';
 import TodaySchedule from '../components/dashboard/TodaySchedule';
 import StatsSummary from '../components/dashboard/StatsSummary';
+import Reminders from '../components/dashboard/Reminders';
 import { useApp } from '../context/AppContext';
 
 const Home = () => {
@@ -34,6 +35,9 @@ const Home = () => {
 
             {/* Today's Schedule */}
             <TodaySchedule />
+
+            {/* Reminders */}
+            <Reminders />
 
             {/* Quick Actions */}
             <div className="space-y-3">

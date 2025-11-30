@@ -12,10 +12,10 @@ self.addEventListener('notificationclick', (event) => {
     const action = event.action;
     let url = '/';
 
-    if (action === 'mark-all') {
-        url = '/?action=mark-all';
-    } else if (action === 'mark-not') {
-        url = '/?action=mark-not';
+    if (action === 'mark-yes') {
+        url = '/?action=mark-yes';
+    } else if (action === 'mark-no') {
+        url = '/?action=mark-no';
     } else {
         url = '/';
     }

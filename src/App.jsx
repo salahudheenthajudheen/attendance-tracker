@@ -34,7 +34,7 @@ function AppContent() {
       const dateStr = format(today, 'yyyy-MM-dd');
       const todaysClasses = timetable[dayName] || [];
 
-      if (action === 'mark-all') {
+      if (action === 'mark-yes') {
         todaysClasses.forEach(slot => {
           addAttendanceRecord({
             subjectId: slot.subjectId,
@@ -43,17 +43,8 @@ function AppContent() {
           });
         });
         alert('Marked all classes as Present!');
-      } else if (action === 'mark-not') {
-        todaysClasses.forEach(slot => {
-          addAttendanceRecord({
-            subjectId: slot.subjectId,
-            date: dateStr,
-            status: 'absent'
-          });
-        });
-        alert('Marked all classes as Absent!');
       }
-      // 'mark-not-all' just opens the app, so no specific logic needed other than clearing the param
+      // 'mark-no' just opens the app, so no specific logic needed other than clearing the param
 
       // Clear the query param to prevent re-triggering on reload
       navigate('/', { replace: true });

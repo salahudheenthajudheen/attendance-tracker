@@ -27,9 +27,8 @@ const NotificationScheduler = () => {
                     vibrate: [200, 100, 200],
                     tag: 'daily-attendance', // Prevents duplicate notifications
                     actions: [
-                        { action: 'mark-all', title: 'All Present' },
-                        { action: 'mark-not-all', title: 'Not All' },
-                        { action: 'mark-not', title: 'Not Present' }
+                        { action: 'mark-yes', title: 'Yes' },
+                        { action: 'mark-no', title: 'No' }
                     ]
                 });
             }
